@@ -1,1 +1,13 @@
-
+---
+  - name:  Tao loopback dong gan IPv4 dong
+hosts: all # tên của thiết bị trong Ansible server( vì ở đây chỉ có router nên có thể để all)
+# các tác vụ
+tasks:
+    - name: Set loopback IPv4 address # Đặt tên task để quản lý
+      ios_l3_interface: # do cấu hình router nên bắt buộc khai báo như vậy
+        name: loopback "{{item.number}}"
+        ipv4: 10.0."{{item.ip}}".1/24 # địa chỉ IP của loopback
+      with_items:
+        - { number: 1, ip: 1 }
+        - { number: 2, ip: 2 }
+        - { number: 3, ip: 3 }
